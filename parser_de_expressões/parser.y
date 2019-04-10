@@ -22,6 +22,10 @@
 
 %%
 /* Regras de Sintaxe */
+termo: NUM
+     | OPBAR termo CLOBAR
+     | OPBAR exp CLOBAR
+
 
 %%
 

@@ -22,13 +22,37 @@
 
 %%
 /* Regras de Sintaxe */
-termo: NUM
-     | OPBAR termo CLOBAR
-     | OPBAR exp CLOBAR
+calc:
+    | calc exp NEWLIN   {printf("%d\n", $2);}
+    ;
 
+exp : fator
+    | exp ADD fator     {$$ = $1 + $3; }
+    | exp SUB fator     {$$ = $1 - $3; }
+    ;
+
+termo: NUM
+     | OPBAR termo CLOBAR   { $$ = $2; }
+     | OPBAR exp CLOBAR     { $$ = $2; }
+     ;
+
+fator: termo
+     | fator MUL termo      {$$ = $1 * $3; }
+     | fator DIV termo      {$$ = $1 / $3; } 
+     ;
 
 %%
 
 /* Código C geral, será adicionado ao final do código fonte 
  * C gerado.
  */
+
+int main (int argc, char**agrv){
+  yyparser();
+  return 0;
+}
+
+yyerro(char *s){
+  fprintf(stderr, "error: %s\n", s);
+}
+

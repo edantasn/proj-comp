@@ -4,25 +4,22 @@
  * este código ser adicionado no início do arquivo fonte em C
  * que será gerado.
  */
-
+#define NUM_FILHOS 3;
 #include <stdio.h>
 #include <stdlib.h>
 
 
 typedef struct No {
     char token[50];
-    struct No* direita;
-    struct No* esquerda;
-    
-    struct No* meio;
-
+    int numFilhos;
+    struct No** filhos;
 } No;
 
 
 No* allocar_no();
 void liberar_no(void* no);
 void imprimir_arvore(No* raiz);
-No* novo_no(char[50], No*, No*);
+No* novo_no(char[50], No**, int);
 
 %}
 
@@ -41,55 +38,61 @@ No* novo_no(char[50], No*, No*);
 %token APAR
 %token FPAR
 %token EOL
-////
-%token IF
-%token THEN
-////
+
 %type<no> calc
 %type<no> termo
 %type<no> fator
 %type<no> exp
+
 %type<simbolo> NUM
 %type<simbolo> MUL
 %type<simbolo> DIV
 %type<simbolo> SUB
 %type<simbolo> ADD
 
-///
-%type<simbolo> IF
-%type<simbolo> THEN
-////
-
 
 %%
 /* Regras de Sintaxe */
 
 calc:
-    | calc exp EOL       { imprimir_arvore($2); } 
+    | calc exp EOL  { imprimir_arvore($2); } 
 
 exp: fator                
-   | exp ADD fator { 
-        //Aqui vai codigo C de qualquer tamanho:
-        No* lista = malloc(sizeof(No)*3); // ideia de criar ($1 exp $3)
-        $$ = novo_no("exp", lista);
-        lista[0] = 
-        lista[1] = 
-        lista[2] = 
-        
-    }
+   | exp ADD fator  {    
+                        No **filhos = (No**) malloc (sizeof(No*)*NUM_FILHOS);
+                        filhos[0] = $1; 
+                        filhos[1] = novo_no("+", NULL, 0);
+                        filhos[2] = $2;
 
-   | exp SUB fator       { $$ = novo_no("-", $1, $3); }
+                        $$ = novo_no("exp", filhos, );
+        }
+   | exp SUB fator{
+                    No **filhos = (No**) malloc (sizeof(No*)*3);
+                    filhos[0] = $1; 
+                    filhos[1] = novo_no("-", NULL, 0);
+                    filhos[2] = $2;
+
+                    $$ = novo_no("exp", filhos, );
+        }
    ;
 
 fator: termo            
-     | fator MUL termo  { $$ = novo_no("*", $1, $3); }
-     | fator DIV termo  { $$ = novo_no("/", $1, $3); }
-     ;
+     | fator MUL termo  { 
+                        No **filhos = (No**) malloc (sizeof(No*)*NUM_FILHOS);
+             filhos[0] = $1; 
+             filhos[1] = novo_no("+", NULL, 0);
+             filhos[2] = $2;
 
-if:  termo
-    | 
-    |
-    ;
+       $$ = novo_no("fator", filhos, );
+    }
+     | fator DIV termo  { 
+                        No **filhos = (No**) malloc (sizeof(No*)*NUM_FILHOS);
+             filhos[0] = $1; 
+             filhos[1] = novo_no("/", NULL, 0);
+             filhos[2] = $2;
+             $$ = novo_no("fator", filhos, );
+        }
+     ;
 
 termo: NUM{
         $$ = novo_no($1, NULL, NULL); 
@@ -131,11 +134,6 @@ void imprimir_arvore(No* raiz) {
 }
 
 
-void testFunc(No* raiz){
-    printf("");
-}
-
-
 int main(int argc, char** argv) {
     yyparse();
 }
@@ -143,4 +141,3 @@ int main(int argc, char** argv) {
 yyerror(char *s) {
     fprintf(stderr, "error: %s\n", s);
 }
-

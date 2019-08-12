@@ -18,4 +18,8 @@ if(!encont) printf("Numero nao encontrado!!!");
 
 return 0; }
 
-teteteta
+### Definição da linguagem
+
+A linguagem reconhece tipos inteiros atraves da definição INT e expressões regulares de soma, subtração, divisão e multiplicação representados respectivamente pelos simbolos '+ - * /'. A linguagem define uma arvore ternaria onde a expressão se localiza no No pai e seus filhos são os valores que serão processados pela expressão.
+
+

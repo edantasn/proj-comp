@@ -20,6 +20,6 @@ return 0; }
 
 ### Definição da linguagem
 
-A linguagem reconhece tipos inteiros atraves da definição INT e expressões regulares de soma, subtração, divisão e multiplicação representados respectivamente pelos simbolos '+ - * /'. A linguagem define uma arvore ternaria onde a expressão se localiza no No pai e seus filhos são os valores que serão processados pela expressão.
+A linguagem reconhece tipos inteiros atraves da definição INT e expressões regulares de soma, subtração, divisão e multiplicação representados respectivamente pelos simbolos ADD SUB MUL DIV. A linguagem define uma arvore ternaria onde a expressão se localiza no No folha central e osdemais filhos são os valores que serão processados pela expressão.
 
 

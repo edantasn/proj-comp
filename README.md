@@ -17,3 +17,5 @@ for(i=0; i<tam; i++) { if(arr[i] == num) { printf("\nNumero encontrado na posica
 if(!encont) printf("Numero nao encontrado!!!");
 
 return 0; }
+
+teteteta

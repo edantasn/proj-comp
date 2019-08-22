@@ -32,9 +32,11 @@ utilize os exemplos no diretório "flex" como ponto de partida.
 NUMBER              [0-9]+
 OPERADOR_MATEMATICO ">"|">="|"<"|"<="|"**"|"+"|"\/"|"*"
 ATRIBUICAO          "="
-PALAVRAREERVADA     "main"|"return"|"int"|"float"|"sizeof"|"static"|"typedef"
+PALAVRAREERVADA     "main"|"return"|"int"|"print"|"unsigned"
 IDENTIFICADOR       [_a-zA-Z][_a-zA-Z0-9]*  
 OPERADOR_RELACIONAL "=="|"!="
+CHAVES              "{"|"}"
+COLCHETES           "("|")"
 
 /* FIM DA SEÇÃO DE DEFINIÇÕES */
 
@@ -51,6 +53,8 @@ OPERADOR_RELACIONAL "=="|"!="
 {PALAVRAREERVADA}      {printf("<palavra, %s>", yytext); contador++;}
 {OPERADOR_RELACIONAL}   {printf("<operadorRelacao, %s>", yytext); contador++;}
 {ATRIBUICAO}            {printf("<atribuicao, %s>", yytext); contador++;}
+{COLCHETES}             {printf("<cochete, %s>", yytext); contador++;}
+{CHAVES}                {printf("<chaves, %s>", yytext); contador++;}
 <<EOF>>                return 0;
     
 %%

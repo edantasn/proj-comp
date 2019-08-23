@@ -33,13 +33,17 @@ TIPO				"int"|"float"|"char"|"double"|"unsigned"|"void"
 ABERTURA			"\("|"\{"|"["
 FECHAMENTO			"\)"|"\}"|"]"
 OPERADOR_UNICO			"++"|"--"
+OPERADOR_MATEMATICO     "+"|"-"|"/"|[\*]
 OPERADOR_ATRIBUICAO		"="|"+="|"-="|"&="|"*="
 OPERADOR_RELACIONAL		"<"|">"|"<="|">="|"=="|"!="
+CONDICIONAL         "if"|"else"|"switch"
+LACO			"while"|"for"|"do"
 NUMBER              [0-9]+
-OPERADOR_MATEMATICO ">"|">="|"<"|"<="|"**"|"+"|"\"|"*"
+
 PALAVRAREERVADA     "main"|"return"|"print"
 IDENTIFICADOR       [_a-zA-Z][_a-zA-Z0-9]*
 FIMCOMANDO          ";"
+
 
 /* FIM DA SEÇÃO DE DEFINIÇÕES */
 
@@ -60,7 +64,9 @@ FIMCOMANDO          ";"
 {OPERADOR_ATRIBUICAO}            {printf("<op_atribuicao, %s>", yytext); contador++;}
 {ABERTURA}             {printf("<abertura, %s>", yytext); contador++;}
 {FECHAMENTO}                {printf("<fechamento, %s>", yytext); contador++;}
-<<EOF>>                return 0;
+{FIMCOMANDO}                {printf("<fim de comando, %s>", yytext); contador++;}
+{CONDICIONAL}                {printf("<condicional, %s>", yytext); contador++;}
+{LACO}                {printf("<laco, %s>", yytext); contador++;}
     
 %%
 

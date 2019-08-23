@@ -29,14 +29,17 @@ utilize os exemplos no diretório "flex" como ponto de partida.
 %}
 
 /* Definições de Nomes */
+TIPO				"int"|"float"|"char"|"double"|"unsigned"|"void"
+ABERTURA			"\("|"\{"|"["
+FECHAMENTO			"\)"|"\}"|"]"
+OPERADOR_UNICO			"++"|"--"
+OPERADOR_ATRIBUICAO		"="|"+="|"-="|"&="|"*="
+OPERADOR_RELACIONAL		"<"|">"|"<="|">="|"=="|"!="
 NUMBER              [0-9]+
-OPERADOR_MATEMATICO ">"|">="|"<"|"<="|"**"|"+"|"\/"|"*"
-ATRIBUICAO          "="
-PALAVRAREERVADA     "main"|"return"|"int"|"print"|"unsigned"
-IDENTIFICADOR       [_a-zA-Z][_a-zA-Z0-9]*  
-OPERADOR_RELACIONAL "=="|"!="
-CHAVES              "{"|"}"
-COLCHETES           "("|")"
+OPERADOR_MATEMATICO ">"|">="|"<"|"<="|"**"|"+"|"\"|"*"
+PALAVRAREERVADA     "main"|"return"|"print"
+IDENTIFICADOR       [_a-zA-Z][_a-zA-Z0-9]*
+FIMCOMANDO          ";"
 
 /* FIM DA SEÇÃO DE DEFINIÇÕES */
 
@@ -47,14 +50,16 @@ COLCHETES           "("|")"
         padrão  ação
 
     */
+    
+{TIPO}               {printf("<tipo, %s>", yytext); contador++;}
 {IDENTIFICADOR}        {printf("<identificador, %s>", yytext); contador++;}
 {OPERADOR_MATEMATICO}  {printf("<op_mat, %s>", yytext); contador++;}
 {NUMBER}               {printf("<numero, %s>", yytext); contador++;}
 {PALAVRAREERVADA}      {printf("<palavra, %s>", yytext); contador++;}
-{OPERADOR_RELACIONAL}   {printf("<operadorRelacao, %s>", yytext); contador++;}
-{ATRIBUICAO}            {printf("<atribuicao, %s>", yytext); contador++;}
-{COLCHETES}             {printf("<cochete, %s>", yytext); contador++;}
-{CHAVES}                {printf("<chaves, %s>", yytext); contador++;}
+{OPERADOR_RELACIONAL}   {printf("<op_Relacao, %s>", yytext); contador++;}
+{OPERADOR_ATRIBUICAO}            {printf("<op_atribuicao, %s>", yytext); contador++;}
+{ABERTURA}             {printf("<abertura, %s>", yytext); contador++;}
+{FECHAMENTO}                {printf("<fechamento, %s>", yytext); contador++;}
 <<EOF>>                return 0;
     
 %%
